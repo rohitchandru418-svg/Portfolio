@@ -1,0 +1,19 @@
+# Render Blueprint — https://render.com/deploy?repo=https://github.com/rohitchandru418-svg/Portfolio
+# The app is a normal Next.js server (not a static export), so the CV printer's
+# hidden /cv route and the on-demand sitemap keep working.
+services:
+  - type: web
+    name: chandru-portfolio
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
