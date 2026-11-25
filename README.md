@@ -90,3 +90,22 @@ the drawer falls back to the CSS printer rather than breaking the page.
 - Fonts: Satoshi (Fontshare CDN), with a system fallback.
 - Motion respects `prefers-reduced-motion`.
 - `npm run typecheck` and `npm run build` are the checks to run before shipping.
+
+## Deploy on Render
+
+The repo ships a `render.yaml` Blueprint, so Render can create the service for
+you: **New + → Blueprint → pick this repo**, or open
+`https://render.com/deploy?repo=https://github.com/rohitchandru418-svg/Portfolio`.
+
+Settings it encodes:
+
+| Setting | Value |
+| --- | --- |
+| Runtime | Node (not a static site — the `/cv` route and sitemap need a server) |
+| Build | `npm ci && npm run build` |
+| Start | `npm run start` (binds `$PORT`, falling back to 12000 locally) |
+| Node | 20 |
+| Health check | `/` |
+
+A static mirror is still possible with `STATIC_EXPORT=1 npm run build` (output
+in `out/`), but the Render web service is the supported deployment.
